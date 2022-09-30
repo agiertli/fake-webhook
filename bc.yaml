@@ -1,0 +1,23 @@
+
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: fake-webhook
+  labels:
+    app: fake-webhook
+spec:
+  triggers:
+    - type: GitHub
+      github:
+        secret: github-webhook
+  source:
+    type: Git
+    git:
+      uri: https://github.com/agiertli/fake-webhook
+      ref: main
+  strategy:
+    type: Docker
+  output:
+    to:
+      kind: ImageStreamTag
+      name: fake-webhook:latest
